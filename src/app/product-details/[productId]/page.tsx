@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Button from "@/components/button";
 import useSingleDataStore from "@/store/singleData/singleDataStore";
@@ -78,7 +79,7 @@ const ProductId = () => {
               <div className="line-through text-[#A5B1BB]">{data.price}$</div>
             </div>
             <div className="flex items-center gap-4 w-full">
-              <div className="md:w-3/4 bg-white fixed md:static bottom-0 left-0 right-0 py-2 px-4 md:px-0 md:py-0">
+              <div className="md:w-3/4 bg-white fixed z-10 md:static bottom-0 left-0 right-0 py-2 px-4 md:px-0 md:py-0">
                 <Button text="Savatga qo'shish" icon="details" />
               </div>
               <button className="w-16 h-10 border-2 border-gray-300 rounded-md hover:bg-gray-100">
