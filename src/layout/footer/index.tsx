@@ -9,7 +9,7 @@ import tiktok from "@/assets/socialMedia/tiktok.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-black mt-10">
+    <footer className="bg-black">
       <div className="container mx-auto px-10">
         <div className="grid sm:grid-cols-2 py-10 gap-y-7 lg:grid-cols-4">
           <div className="">

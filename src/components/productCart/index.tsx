@@ -7,7 +7,7 @@ import { DataType } from "@/types/data.types";
 const CartBox = ({ data }: { data: DataType }) => {
   return (
     <div className="w-full min-w-[150px] max-w-[200px] flex flex-col gap-y-2">
-      <Link href="/">
+      <Link href={`/product-details/${data.id}`}>
         <div className="relative w-full h-[152px] bg-[#F4F6F7] rounded-lg overflow-hidden">
           <Image
             src={data.thumbnail}
@@ -29,7 +29,9 @@ const CartBox = ({ data }: { data: DataType }) => {
           $
         </div>
       </Link>
-      <Button text="Savatga" icon="savat" />
+      <div className="w-[120px]">
+        <Button text="Savatga" icon="savat" />
+      </div>
     </div>
   );
 };

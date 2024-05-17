@@ -16,7 +16,9 @@ const Header = () => {
             <Image src={logo} alt="Logo image" />
           </Link>
         </div>
-        <Button text="Tovarlar katalogi" icon="bar" />
+        <div className="w-[200px]">
+          <Button text="Tovarlar katalogi" icon="bar" />
+        </div>
         <div className="flex justify-between border-2 items-center border-main-color rounded-md w-full lg:max-w-[300px] xl:max-w-[453px]">
           <input
             type="text"
