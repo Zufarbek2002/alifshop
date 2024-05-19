@@ -1,0 +1,67 @@
+:root{
+    --bg: #FFBE1F;
+}
+.wrap {
+  --rdiff: calc(var(--max) - var(--min));
+  --ruse: calc(var(--tw) - (var(--thw) / 2));
+  display: grid;
+  position: relative;
+  grid-template: repeat(1, -webkit-max-content) var(--th) / 0.5fr;
+  grid-template: repeat(2, max-content) 6px / 1fr 1fr;
+  background: linear-gradient(0deg, var(--tcol) var(--th), transparent 0);
+  border-radius: var(--tbr);
+}
+.wrap::before,
+.wrap::after {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+  content: '';
+  background: var(--bg);
+  border: none;
+  transform: var(--bg);
+}
+.wrap::before {
+  margin-left: calc((var(--thw) / 4) + (var(--a) - var(--min)) / var(--rdiff) * var(--ruse));
+  width: calc((var(--b) - var(--a)) / var(--rdiff) * var(--ruse));
+}
+.wrap::after {
+  margin-left: calc((var(--thw) / 4) + (var(--b) - var(--min)) / var(--rdiff) * var(--ruse));
+  width: calc((var(--a) - var(--b)) / var(--rdiff) * var(--ruse));
+}
+
+
+input[type='range'] {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  margin: 0;
+  background: none;
+  --col: #000;
+  pointer-events: none;
+}
+input[type='range']::-webkit-slider-runnable-track,
+input[type='range']::-webkit-slider-thumb,
+input[type='range'] {
+  -webkit-appearance: none;
+}
+/*  */
+/*  */
+input[type='range']::-webkit-slider-thumb {
+  pointer-events: auto;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: var(--thbr);
+  border: 3.4px solid var(--bg);
+}
+
+input[type='range']::-moz-range-thumb:hover {
+  background: #fff;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  background: #fff;
+}

@@ -6,10 +6,12 @@ import useCategoriesStore from "@/store/data/categories/categories";
 import { DataType } from "@/types/data.types";
 import CartBox from "@/components/productCart";
 
-import RangeSlider from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
+import { RangeSlider } from "next-range-slider";
+import "@/style/main.css";
 
 const CategoryDetails = () => {
+  const [low, setLow] = useState(10);
+  const [high, setHigh] = useState(1000);
   const [num, setNum] = useState(6);
   const { categoryDetails } = useParams();
   const { data, brand, fetchData, fetchBrandData } = useCategoriesStore();
@@ -27,13 +29,37 @@ const CategoryDetails = () => {
         <div className="col-span-1 pr-4">
           <h3 className="text-sm font-medium">Narx</h3>
           <div className="my-4">
-            <RangeSlider min={50} max={100} className="bg-red-500"/>
+            <RangeSlider
+              min={10}
+              max={1000}
+              step={1}
+
+              options={{
+                leftInputProps: {
+                  value: low,
+                  onChange: (e) => setLow(Number(e.target.value)),
+                },
+                rightInputProps: {
+                  value: high,
+                  onChange: (e) => setHigh(Number(e.target.value)),
+                },
+              }}
+            />
           </div>
           <div className="flex items-center gap-1 border border-gray-400 rounded-md px-2 py-2">
             <label className="text-gray-400 text-sm">dan</label>
             <input
               type="text"
               className="bg-transparent outline-none w-full text-sm"
+              value={low}
+            />
+          </div>
+          <div className="flex items-center gap-1 border border-gray-400 rounded-md px-2 py-2 mt-2">
+            <label className="text-gray-400 text-sm">gacha</label>
+            <input
+              type="text"
+              className="bg-transparent outline-none w-full text-sm"
+              value={high}
             />
           </div>
           <div className="flex flex-col gap-y-2 mt-4">
