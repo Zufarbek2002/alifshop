@@ -22,9 +22,9 @@ const CartBox = ({ data }: { data: DataType }) => {
     setLikeBtn(true)
   }
   return (
-    <div className="w-full min-w-[150px] max-w-[200px] flex flex-col gap-y-2">
+    <div className="w-full min-w-[100px] max-w-[200px] flex flex-col gap-y-2">
       <div className="relative">
-        <Link href={`/product-details/${data.id}`}>
+        <Link href={`/product-details/${data.id}`} className="flex flex-col gap-y-1">
           <div className="relative w-full h-[152px] bg-[#F4F6F7] rounded-lg overflow-hidden">
             <Image
               src={data.thumbnail}
@@ -37,7 +37,7 @@ const CartBox = ({ data }: { data: DataType }) => {
               -{data.discountPercentage.toFixed(0)}%
             </div>
           </div>
-          <div className="line-clamp-2">{data.description}</div>
+          <div className="line-clamp-2 text-xs font-gray-900 mt-1">{data.description}</div>
           <div className="line-through text-[#A5B1BB]">{data.price}$</div>
           <div className="text-[#FF4444] text-base">
             {(
@@ -52,13 +52,13 @@ const CartBox = ({ data }: { data: DataType }) => {
           onClick={() => handleLike(data)}
         >
           {likeBtn ? (
-            <FaHeart color="red" size="24px"/>
+            <FaHeart color="red" size="24px" />
           ) : (
             <PiHeartStraightDuotone size="24px" cursor="pointer" />
           )}
         </div>
       </div>
-      <button className="w-[120px]" onClick={() => handleButton(data)}>
+      <div className="w-[120px]">
         {cartBtn ? (
           <div className="flex border-2 border-gray-300 rounded-md justify-between items-center p-2">
             <button>-</button>
@@ -66,9 +66,11 @@ const CartBox = ({ data }: { data: DataType }) => {
             <button>+</button>
           </div>
         ) : (
-          <Button text="Savatga" icon="savat" />
+          <button onClick={() => handleButton(data)}>
+            <Button text="Savatga" icon="savat" />
+          </button>
         )}
-      </button>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, {useState} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoSearch } from "react-icons/io5";
@@ -8,6 +9,8 @@ import Button from "@/components/button";
 import logo from "@/assets/logo.png";
 
 const Header = () => {
+  const [search, setSearch] = useState('')
+
   return (
     <header className="container mx-auto px-10 py-4">
       <div className="flex justify-between gap-2 items-center">
@@ -24,9 +27,10 @@ const Header = () => {
             type="text"
             className="mx-3 my-2 mb-2.5 outline-none w-full"
             placeholder="Tovarlarni izlash"
+            onChange={(e)=>setSearch(e.target.value)}
           />
           <Link
-            href="/search"
+          href={`/search?q=${search}`}
             className="bg-main-color hover:bg-hover-main-color active:bg-active-main-color cursor-pointer py-2.5 px-[14px]"
           >
             <IoSearch size="24px" />

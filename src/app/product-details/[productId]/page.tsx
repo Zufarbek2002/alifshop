@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import Button from "@/components/button";
-import useSingleDataStore from "@/store/singleData/singleDataStore";
-import { DataType } from "@/types/data.types";
-import Image from "next/image";
-import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa6";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import Button from "@/components/button";
+import useSingleDataStore from "@/store/singleData/singleDataStore";
 
 const ProductId = () => {
   const [index, setIndex] = useState("null");

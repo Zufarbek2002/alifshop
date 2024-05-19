@@ -34,7 +34,7 @@ const Banner = () => {
         }}
         rewind={true}
         modules={[Autoplay, Navigation, Pagination, Mousewheel, Keyboard]}
-        className="w-full h-[400px] rounded-2xl"
+        className="w-full h-[300px] rounded-2xl"
       >
         {images.map((img, i) => (
           <SwiperSlide key={i}>

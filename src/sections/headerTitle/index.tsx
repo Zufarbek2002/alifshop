@@ -5,9 +5,10 @@ import { DataType } from "@/types/data.types";
 import Link from "next/link";
 import React, { useEffect } from "react";
 
+
 const HeaderTitle = () => {
-  const { data, fetchData } = useDataStore();
   const category: string[] = [];
+  const { data, fetchData } = useDataStore();
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,9 +22,9 @@ const HeaderTitle = () => {
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-4 w-[90vw] overflow-hidden capitalize font-semibold text-[#788998]">
-        {category?.map((text, i) => (
+        {category?.map((text:string, i:number) => (
           <Link
-            href="/"
+            href={`/categories/${text}`}
             className="hover:text-black border-b py-[11px] border-b-white hover:border-b-black flex-shrink-0"
             key={i}
           >

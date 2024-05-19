@@ -1,19 +1,19 @@
 import axios from "axios";
 import { create } from "zustand";
 
-const singleData = (set: any) => ({
+const searchData = (set: any) => ({
     loading: false,
     data: [],
     error: null,
-    fetchData: async (id: string | string[]) => {
+    fetchData: async (text: string | string[]) => {
         set(() => ({
             loading: true
         }))
         try {
-            const res = await axios.get(`https://dummyjson.com/products/${id}`)
+            const res = await axios.get(`https://dummyjson.com/products/search?q=${text}`)
             const data = await res.data
             set(() => ({
-                data: data
+                data: data.products
             }))
         } catch (err) {
             set(() => ({
@@ -27,5 +27,5 @@ const singleData = (set: any) => ({
     }
 })
 
-const useSingleDataStore = create(singleData)
-export default useSingleDataStore
+const useSearchData = create(searchData)
+export default useSearchData
