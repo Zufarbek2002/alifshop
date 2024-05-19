@@ -51,7 +51,7 @@ const ProductId = () => {
               ))}
             </div>
             <div className="lg:w-3/4 flex justify-center items-center ">
-              <Image
+              <img
                 src={index !== "null" ? index : data.thumbnail}
                 alt="img"
                 width={500}
