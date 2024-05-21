@@ -5,7 +5,7 @@ import React from "react";
 
 const Cart = () => {
   const data = JSON.parse(`${localStorage.getItem("cart")}`) || [];
-console.log(data)
+
   return <div>
     <div className="flex gap-2">
       <div className="">Savat</div>
