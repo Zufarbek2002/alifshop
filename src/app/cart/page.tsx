@@ -8,8 +8,10 @@ import { FaRegTrashCan } from "react-icons/fa6";
 const Cart = () => {
   const [cartData, setCartData] = useState<DataType[]>([]);
   const [sum, setSum] = useState(0);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     const data = JSON.parse(localStorage.getItem("cart") || "[]") as DataType[];
     setCartData(data);
     calculateSum(data);
@@ -26,6 +28,10 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(newData));
     calculateSum(newData);
   };
+
+   if (!isClient) {
+     return null; // or a loading spinner
+   }
 
   return (
     <>

@@ -7,12 +7,14 @@ const Favorites: React.FC = () => {
   const [favorites, setFavorites] = useState<DataType[]>([]);
 
   useEffect(() => {
-    const storedFavorites = localStorage.getItem("like");
-    if (storedFavorites) {
-      try {
-        setFavorites(JSON.parse(storedFavorites));
-      } catch (error) {
-        console.error("Error parsing favorites:", error);
+    if (typeof window !== "undefined") {
+      const storedFavorites = localStorage.getItem("like");
+      if (storedFavorites) {
+        try {
+          setFavorites(JSON.parse(storedFavorites));
+        } catch (error) {
+          console.error("Error parsing favorites:", error);
+        }
       }
     }
   }, []);

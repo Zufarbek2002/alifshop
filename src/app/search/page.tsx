@@ -1,9 +1,18 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import CartBox from "@/components/productCart";
 import useSearchData from "@/store/searchData/searchData";
 import { DataType } from "@/types/data.types";
+
+const ClientSideSearchParams = dynamic(
+  () =>
+    import("@/components/serchComp/index").then(
+      (mod) => mod.ClientSideSearchParams
+    ),
+  { ssr: false }
+);
 
 const Search = () => {
   const { data, fetchData } = useSearchData();
