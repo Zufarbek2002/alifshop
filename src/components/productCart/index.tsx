@@ -1,72 +1,112 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import Button from "../button";
 import { DataType } from "@/types/data.types";
 import { PiHeartStraightDuotone } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa6";
 
+// ... existing imports ...
+
 const CartBox = ({ data }: { data: DataType }) => {
-  const [cartBtn, setCartBtn] = useState(false)
-  const [likeBtn, setLikeBtn] = useState(false)
-  const handleButton =(data:DataType)=>{
-    const cart = JSON.parse(`${localStorage.getItem("cart")}`) || [];
-    const newCart = cart && [...cart, data];
-    localStorage.setItem("cart", JSON.stringify(newCart));
-    setCartBtn(true)
-  }
-  const handleLike =(data:DataType)=>{
-    const cart = JSON.parse(`${localStorage.getItem("like")}`) || [];
-    const newCart = cart && [...cart, data];
-    localStorage.setItem("like", JSON.stringify(newCart));
-    setLikeBtn(true)
-  }
+  const [isInCart, setIsInCart] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
+  // Optimize calculations with useMemo
+  const discountedPrice = useMemo(() => {
+    return (data.price - (data.price * data.discountPercentage) / 100).toFixed(
+      2
+    );
+  }, [data.price, data.discountPercentage]);
+
+  // Use useCallback for event handlers
+  const handleQuantityChange = useCallback((increment: number) => {
+    setQuantity((prev) => Math.max(1, prev + increment));
+  }, []);
+
+  const handleAddToCart = useCallback(() => {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const updatedCart = [...cart, { ...data, quantity }];
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setIsInCart(true);
+  }, [data, quantity]);
+
+  const handleLike = useCallback(() => {
+    const likedItems = JSON.parse(localStorage.getItem("likedItems") || "[]");
+    const updatedLikedItems = [...likedItems, data];
+    localStorage.setItem("likedItems", JSON.stringify(updatedLikedItems));
+    setIsLiked(true);
+  }, [data]);
+
   return (
     <div className="w-full min-w-[100px] max-w-[200px] flex flex-col gap-y-2">
       <div className="relative">
-        <Link href={`/product-details/${data.id}`} className="flex flex-col gap-y-1">
-          <div className="relative w-full h-[152px] bg-[#F4F6F7] rounded-lg overflow-hidden">
+        <Link
+          href={`/product-details/${data.id}`}
+          className="flex flex-col gap-y-1"
+        >
+          <div className="relative w-full h-[140px] bg-[#F4F6F7] rounded-lg overflow-hidden">
             <Image
               src={data.thumbnail}
               alt={data.title}
-              width={161}
-              height={152}
-              style={{ width: "auto", height: "152px", objectFit: "cover" }}
+              width={180}
+              height={140}
+              style={{
+                width: "auto",
+                height: "140px",
+                objectFit: "cover",
+                margin: "auto",
+              }}
             />
-            <div className="absolute bg-[#FF4444] text-white rounded-xl font-semibold bottom-1.5 px-2.5 py-0.5">
-              -{data.discountPercentage.toFixed(0)}%
+            <div className="absolute bg-[#FF4444] text-xs text-white rounded-xl font-medium bottom-1.5 px-2.5 py-0.5">
+              -{Math.round(data.discountPercentage)}%
             </div>
           </div>
-          <div className="line-clamp-2 text-xs font-gray-900 mt-1">{data.description}</div>
-          <div className="line-through text-[#A5B1BB]">{data.price}$</div>
-          <div className="text-[#FF4444] text-base">
-            {(
-              data.price -
-              (data.price * data.discountPercentage) / 100
-            ).toFixed(2)}
-            $
-          </div>
+          <p className="line-clamp-2 text-xs font-gray-900 mt-1">
+            {data.description}
+          </p>
+          <p className="line-through text-xs text-[#A5B1BB]">${data.price}</p>
+          <p className="text-[#FF4444] text-sm font-medium">
+            ${discountedPrice}
+          </p>
         </Link>
-        <div
+        <button
           className="absolute top-2 right-2 bg-white rounded-xl p-1"
-          onClick={() => handleLike(data)}
+          onClick={handleLike}
+          aria-label={isLiked ? "Remove from favorites" : "Add to favorites"}
         >
-          {likeBtn ? (
+          {isLiked ? (
             <FaHeart color="red" size="24px" />
           ) : (
-            <PiHeartStraightDuotone size="24px" cursor="pointer" />
+            <PiHeartStraightDuotone size="24px" />
           )}
-        </div>
+        </button>
       </div>
-      <div className="w-[120px]">
-        {cartBtn ? (
-          <div className="flex border-2 border-gray-300 rounded-md justify-between items-center p-2">
-            <button>-</button>
-            <div className="">1</div>
-            <button>+</button>
+      <div className="w-[100px]">
+        {isInCart ? (
+          <div className="flex border-2 border-gray-300 rounded-md justify-between items-center px-2 py-1">
+            <button
+              className={`font-bold ${
+                quantity <= 1 ? "text-[#E3E8EA]" : "text-[#000]"
+              }`}
+              onClick={() => handleQuantityChange(-1)}
+              disabled={quantity <= 1}
+              aria-label="Decrease quantity"
+            >
+              —
+            </button>
+            <span>{quantity}</span>
+            <button
+              className="text-[24px] leading-none"
+              onClick={() => handleQuantityChange(1)}
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
           </div>
         ) : (
-          <button onClick={() => handleButton(data)}>
+          <button onClick={handleAddToCart}>
             <Button text="Savatga" icon="savat" />
           </button>
         )}

@@ -17,11 +17,25 @@ const config: Config = {
       },
       colors: {
         'main-color': '#FFBE1F',
-        'hover-main-color': '#ffc01fd5',
+        'hover-main-color': '#ffd05b',
         'active-main-color': '#e3b746',
       }
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          'display': 'none',
+        },
+      }
+
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    }
+  ],
 };
 export default config;

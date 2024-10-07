@@ -13,7 +13,7 @@ const ProductCategories = () => {
       <Laptops />
       <Fragrances />
       <Skincare />
-      <Link href="/categories" className="mx-auto w-1/2">
+      <Link href="/categories" className="mx-auto w-full md:w-1/2">
         <Button text="Katalogga o'tish" icon="katalog"/>
       </Link>
     </div>

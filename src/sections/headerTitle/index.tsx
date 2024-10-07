@@ -21,18 +21,18 @@ const HeaderTitle = () => {
 
   return (
     <div className="flex justify-between items-center">
-      <div className="flex gap-4 w-[90vw] overflow-hidden capitalize font-semibold text-[#788998]">
+      <div className="flex gap-4 w-[86vw] overflow-hidden capitalize font-medium text-[#788998]">
         {category?.map((text:string, i:number) => (
           <Link
             href={`/categories/${text}`}
-            className="hover:text-black border-b py-[11px] border-b-white hover:border-b-black flex-shrink-0"
+            className="text-xs hover:text-black border-b py-[5px] border-b-white hover:border-b-black flex-shrink-0"
             key={i}
           >
             {text}
           </Link>
         ))}
       </div>
-      <Link href="/">Yana</Link>
+      <Link href="/" className='ml-1 text-xs font-semibold'>Yana</Link>
     </div>
   );
 };
